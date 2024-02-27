@@ -44,7 +44,7 @@ const Search = () => {
 
   const guestLabel = useMemo(() => {
     if (guestCount) {
-      return `${guestCount} Guests`;
+      return `${guestCount} Persons`;
     }
 
     return "in 1 click";
