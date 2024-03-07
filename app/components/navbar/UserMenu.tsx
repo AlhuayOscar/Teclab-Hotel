@@ -11,6 +11,7 @@ import useRentModal from "@/app/hooks/useRentModal";
 import { SafeUser } from "@/app/types";
 
 import MenuItem from "./MenuItem";
+import Avatar from "../Avatar";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -76,6 +77,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           "
         >
           <AiOutlineMenu />
+          <div className="hidden md:block">
+            <Avatar src={currentUser?.image} />
+          </div>
         </div>
       </div>
       {isOpen && (
@@ -96,18 +100,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem
-                  label="My trips"
-                  onClick={() => router.push("/trips")}
-                />
-                <MenuItem
-                  label="My favorites"
-                  onClick={() => router.push("/favorites")}
-                />
-                <MenuItem
-                  label="My reservations"
-                  onClick={() => router.push("/reservations")}
-                />
                 <MenuItem
                   label="My properties"
                   onClick={() => router.push("/properties")}

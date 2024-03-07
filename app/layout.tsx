@@ -6,6 +6,7 @@ import LoginModal from "@/app/components/modals/LoginModal";
 import RegisterModal from "@/app/components/modals/RegisterModal";
 import SearchModal from "@/app/components/modals/SearchModal";
 import ClientOnly from './components/ClientOnly';
+import getCurrentUser from "./actions/getCurrentUser";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,11 +15,12 @@ export const metadata: Metadata = {
   description: "Teclab Hotel Finder",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -26,7 +28,7 @@ export default function RootLayout({
           <LoginModal />
           <RegisterModal />
           <SearchModal />
-          <Navbar />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         {children}
       </body>
