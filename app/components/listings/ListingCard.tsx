@@ -58,15 +58,13 @@ const ListingCard: React.FC<ListingCardProps> = ({
       }
       try {
         const now = new Date();
+        const userId = currentUser?.id;
         const paymentInfo = {
           price: reservation?.totalPrice,
           // userEmail: currentUser?.email,
+          userId: userId,
           userEmail: "test_user_123@testuser.com",
-          paid: true,
-          paymentDate: now,
-          bill: "https://imgv2-2-f.scribdassets.com/img/document/464564232/original/02fe79b69b/1709098739?v=1",
         };
-        console.log(now);
         if (reservation?.id) {
           const reservationId = reservation?.id;
           const response = await axios.put(

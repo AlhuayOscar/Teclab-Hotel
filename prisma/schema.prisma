@@ -71,7 +71,7 @@ model Reservation {
   endDate     DateTime
   totalPrice  Int
   createdAt   DateTime  @default(now())
-  paid        Boolean  @default(false)
+  paid        Boolean   @default(false)
   paymentDate DateTime?
   bill        String?
 
