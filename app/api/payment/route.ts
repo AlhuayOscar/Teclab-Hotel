@@ -1,15 +1,17 @@
-import { NextResponse } from "next/server";
+import mercadopage from "mercadopago";
 
-import prisma from "@/app/libs/prismadb";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+export const payment = async (req: any, res: any) => {
+  try {
+    const payment = req.query;
+    console.log(payment, req);
+    if (payment.type === "payment") {
+      const data = await mercadopage.payment.findById(payment["data.id"]);
+      console.log(data);
+    }
 
-export async function POST(request: Request) {
-  const currentUser = await getCurrentUser();
-
-  if (!currentUser) {
-    return NextResponse.error();
+    res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Something goes wrong" });
   }
-  const body = await request.json();
-  console.log("Payment Done")
-  return NextResponse.json(null);
-}
+};

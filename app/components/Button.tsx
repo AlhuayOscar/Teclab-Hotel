@@ -26,40 +26,35 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       onClick={onClick}
       className={`
-        relative
-        disabled:opacity-70
-        disabled:cursor-not-allowed
-        rounded-lg
-        hover:opacity-80
-        transition
-        w-full
-        ${
-          outline
-            ? "bg-white"
-            : payment
-            ? "bg-gradient-to-br from-[#4682B4] via-[#4682B4] to-[#ADD8E6]" // Azul con degradado celeste
-            : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700]" // Otros casos
-        }
-        ${
-          outline
-            ? "border-black"
-            : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700]"
-        }
-        ${outline ? "text-black" : "text-white"}
-        ${small ? "text-sm" : "text-md"}
-        ${small ? "py-1" : "py-3"}
-        ${small ? "font-light" : "font-semibold"}
-        ${small ? "border-[1px]" : "border-2"}
-      `}
+    relative
+    disabled:opacity-70
+    disabled:cursor-not-allowed
+    rounded-lg
+    hover:opacity-80
+    transition
+    w-full
+    ${
+      outline
+        ? "bg-white border-black text-black"
+        : payment
+        ? "bg-gradient-to-br from-[#4682B4] via-[#4682B4] to-[#ADD8E6] text-white"
+        : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700] text-white"
+    }
+    ${
+      small
+        ? "text-sm py-1 font-light border-[1px]"
+        : "text-md py-3 font-semibold border-2"
+    }
+  `}
     >
       {Icon && (
         <Icon
           size={24}
           className="
-            absolute
-            left-4
-            top-3
-          "
+        absolute
+        left-4
+        top-3
+      "
         />
       )}
       {label}

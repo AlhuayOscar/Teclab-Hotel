@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -34,33 +35,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
-  const reservationData = {
-    id: "65ea3826769617f46fc5163e",
-    userId: "65ea32ab769617f46fc5163b",
-    listingId: "65ea1f8de5e2713506f411c2",
-    startDate: "2024-03-07T03:00:00.000Z",
-    endDate: "2024-03-09T03:00:00.000Z",
-    totalPrice: 44,
-    createdAt: "2024-03-07T21:56:53.983Z",
-    paid: true,
-    paymentDate: "2024-03-09T03:00:00.000Z",
-    bill: "https://imgv2-2-f.scribdassets.com/img/document/464564232/original/02fe79b69b/1709098739?v=1",
-    listing: {
-      id: "65ea1f8de5e2713506f411c2",
-      title: "Best Austria Hotel 2023",
-      description: "Your only option for luxury",
-      imageSrc:
-        "https://res.cloudinary.com/dipn8zmq3/image/upload/v1709842296/l9slnmrk25nuvattdfvi.jpg",
-      createdAt: "2024-03-07T20:11:57.525Z",
-      category: "Lake House",
-      roomCount: 3,
-      bathroomCount: 1,
-      guestCount: 4,
-      locationValue: "AT",
-      userId: "65de518b7a05e77982cc73c4",
-      price: 22,
-    },
-  };
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -83,11 +57,24 @@ const ListingCard: React.FC<ListingCardProps> = ({
         return;
       }
       try {
-        // const response = await axios.put(
-        //   `/api/payment/${data.id}`,
-        //   reservationData
-        // );
-        console.log(reservation);
+        const now = new Date();
+        const paymentInfo = {
+          price: reservation?.totalPrice,
+          // userEmail: currentUser?.email,
+          userEmail: "test_user_123@testuser.com",
+          paid: true,
+          paymentDate: now,
+          bill: "https://imgv2-2-f.scribdassets.com/img/document/464564232/original/02fe79b69b/1709098739?v=1",
+        };
+        console.log(now);
+        if (reservation?.id) {
+          const reservationId = reservation?.id;
+          const response = await axios.put(
+            `/api/payment/${reservationId}`,
+            paymentInfo
+          );
+          response ? window.open(response.data, "_blank") : null;
+        }
       } catch (error) {
         console.error("Error occurred while processing payment:", error);
       }
