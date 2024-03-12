@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { IconType } from "react-icons";
 
@@ -8,15 +8,17 @@ interface ButtonProps {
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
+  payment?: boolean;
   icon?: IconType;
 }
 
-const Button: React.FC<ButtonProps> = ({ 
-  label, 
-  onClick, 
-  disabled, 
+const Button: React.FC<ButtonProps> = ({
+  label,
+  onClick,
+  disabled,
   outline,
   small,
+  payment,
   icon: Icon,
 }) => {
   return (
@@ -32,9 +34,17 @@ const Button: React.FC<ButtonProps> = ({
         transition
         w-full
         ${
-          outline ? "bg-white" : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700]"
+          outline
+            ? "bg-white"
+            : payment
+            ? "bg-gradient-to-br from-[#4682B4] via-[#4682B4] to-[#ADD8E6]" // Azul con degradado celeste
+            : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700]" // Otros casos
         }
-        ${outline ? "border-black" : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700]"}
+        ${
+          outline
+            ? "border-black"
+            : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700]"
+        }
         ${outline ? "text-black" : "text-white"}
         ${small ? "text-sm" : "text-md"}
         ${small ? "py-1" : "py-3"}
@@ -55,6 +65,6 @@ const Button: React.FC<ButtonProps> = ({
       {label}
     </button>
   );
-}
- 
+};
+
 export default Button;
