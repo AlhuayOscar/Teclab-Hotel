@@ -17,10 +17,12 @@ interface IParams {
 export async function PUT(request: Request, { params }: { params: IParams }) {
   const currentUser = await getCurrentUser();
   const paymentBody = await request.json();
-  mercadopage.configure({
-    access_token:
-      "TEST-6853751905309594-031200-61ca45230f1b95ad5a8533f855abe126-1721592315",
-  });
+  if (process.env.MP_ACCESS_TOKEN) {
+    mercadopage.configure({
+      access_token: process.env.MP_ACCESS_TOKEN,
+    });
+  }
+
   const finalPrice = paymentBody?.price;
   if (!currentUser) {
     return NextResponse.error();
