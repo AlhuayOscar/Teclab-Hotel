@@ -100,6 +100,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
+                {currentUser && (
+                  <MenuItem
+                    label="My profile"
+                    onClick={() => router.push("/profiles")}
+                  />
+                )}
                 <MenuItem
                   label="My trips"
                   onClick={() => router.push("/trips")}
