@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { SafeListing, SafeUser } from "@/app/types";
 import Heading from "@/app/components/Heading";
@@ -9,6 +9,7 @@ import { FieldValues } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import ImageUpload from "@/app/components/inputs/ImageUpload";
 
 interface ProfileClientProps {
   listings: SafeListing[];
@@ -17,6 +18,10 @@ interface ProfileClientProps {
 
 const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
   const router = useRouter();
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [editedImage, setEditedImage] = useState<string>(
+    currentUser?.image || ""
+  );
 
   const {
     register,
@@ -31,8 +36,9 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
     const emailEdited =
       data.editedEmail && data.editedEmail !== currentUser?.email;
     const nameEdited = data.name !== currentUser?.name;
+    data.image = editedImage;
 
-    emailEdited || nameEdited
+    emailEdited || nameEdited || editedImage
       ? toast
           .promise(
             axios.put("/api/profile", data, {
@@ -51,6 +57,9 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
               toast("Tendrás que volver a iniciar sesión", { icon: "❗" });
               signOut();
             }
+            if (result && editedImage) {
+              router.refresh();
+            }
           })
           .catch((error) => {
             emailEdited
@@ -65,6 +74,14 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
         });
   };
 
+  const openImageModal = () => {
+    setIsImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setIsImageModalOpen(false);
+  };
+
   return (
     <Container>
       {currentUser ? (
@@ -72,9 +89,10 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
           <Heading title="Profile:" subtitle="Your personal information" />
 
           <img
-            src={currentUser?.image || "/images/placeholder.jpg"}
+            src={editedImage || currentUser?.image || "/images/placeholder.jpg"}
             alt="Imagen de Perfil"
-            className="mx-auto rounded-full w-32 h-32"
+            className="mx-auto rounded-full w-32 h-32 cursor-pointer object-cover"
+            onClick={openImageModal}
           />
 
           <div className="mt-4">
@@ -108,7 +126,8 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
                 />
               </p>
 
-              {Object.keys(dirtyFields).length > 0 && (
+              {(Object.keys(dirtyFields).length > 0 ||
+                editedImage !== currentUser?.image) && (
                 <button
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
@@ -124,6 +143,27 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
         <></>
       )}
       <Toaster />
+      {isImageModalOpen && (
+        <div
+          className="fixed top-0 left-0 z-50 w-screen h-screen flex justify-center items-center bg-black bg-opacity-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              closeImageModal();
+            }
+          }}
+        >
+          <div className="bg-white rounded-lg shadow-lg p-8 w-auto h-auto w-max-96 h-max-96">
+            <ImageUpload
+              className="image-upload"
+              onChange={(value) => {
+                setEditedImage(value);
+                closeImageModal();
+              }}
+              value={editedImage}
+            />
+          </div>
+        </div>
+      )}
     </Container>
   );
 };
