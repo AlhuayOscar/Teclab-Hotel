@@ -10,7 +10,7 @@ interface PaymentData {
   bill: string | any;
 }
 
-export async function POST(request: Request, { params }: { params: IParams }) {
+export async function GET(request: Request, { params }: { params: IParams }) {
   const body = await request.json();
   const webhookId = params.webhook;
   const dateCreated = body.date_created;
