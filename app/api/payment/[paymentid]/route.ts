@@ -43,7 +43,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
           quantity: 1,
         },
       ],
-      notification_url: `https://9a12-190-57-242-149.ngrok-free.app/api/webhook/${reservationId}`,
+      notification_url: `https://teclab-hotel.vercel.app/api/webhook/${reservationId}`,
       back_urls: {
         success: "https://teclab-hotel.vercel.app/trips",
       },
