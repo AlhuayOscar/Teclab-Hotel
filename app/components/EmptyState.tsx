@@ -14,7 +14,6 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   showReset,
 }) => {
   const router = useRouter();
-  console.log(showReset)
   return (
     <div
       className="
