@@ -147,7 +147,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               ? location?.region.slice(0, 10) + "..."
               : location?.region
             : "Unknown"}
-          ,{" "}
+          , <br />{" "}
           {location?.label
             ? location?.label.length > 10
               ? location?.label.slice(0, 10) + "..."
