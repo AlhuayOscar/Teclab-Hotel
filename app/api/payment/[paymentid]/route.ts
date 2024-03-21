@@ -45,7 +45,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
       ],
       notification_url: `https://9a12-190-57-242-149.ngrok-free.app/api/webhook/${reservationId}`,
       back_urls: {
-        success: "http://localhost:3000/trips",
+        success: "https://teclab-hotel.vercel.app/trips",
       },
     });
     const initPoint = result.body.init_point;
