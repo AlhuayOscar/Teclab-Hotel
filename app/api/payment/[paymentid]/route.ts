@@ -41,16 +41,30 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     throw new Error("Invalid ID");
   }
   const htmlContent = `
-        <img src="https://res.cloudinary.com/dipn8zmq3/image/upload/v1709847291/rokqijqiwc0d4mms8ylo.jpg" style="width: 100%; max-width: 100%; max-height: 250px; overflow: hidden; object-fit: cover;" />
-        <h1 style="display:flex; flex-direction: column; align-items: center; justify-content: center; ">
-            Your purchase is done! Feel free to read the description: ${JSON.stringify(
-              paymentBody
-            )}
-            El id de la reserva${reservationId}
-            <button> Quiero presentar una queja </button>
-            <button> Tuve un problema </button>
-        </h1>
-    `;
+    <img src="https://res.cloudinary.com/dipn8zmq3/image/upload/v1709847291/rokqijqiwc0d4mms8ylo.jpg" style="width: 100%; max-width: 100%; max-height: 250px; overflow: hidden; object-fit: cover;" />
+    <div>
+        Your purchase is done! Feel free to read the description: 
+
+        <div style="max-width: 300px">
+        ${JSON.stringify(paymentBody)}
+        </div>
+
+        El id de la reserva 
+
+        <div> 
+        ${reservationId} 
+        </div>
+
+        <div>
+        <button>Quiero presentar una queja</button>
+        </div>
+
+        <div>
+        <button>Tuve un problema</button>
+        </div>
+    </div>
+`;
+
   /*Si queremos agregar el email del usuario necesitamos 
   poner en subject el valor de paymentBody.userEmail, 
   En este caso no lo haremos porque es más facil el testeo*/
