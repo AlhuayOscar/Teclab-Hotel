@@ -35,6 +35,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         },
         data: paymentData,
       });
+      
       const htmlContent = `
     <img src="https://res.cloudinary.com/dipn8zmq3/image/upload/v1709847291/rokqijqiwc0d4mms8ylo.jpg" style="width: 100%; max-width: 100%; max-height: 250px; overflow: hidden; object-fit: cover;" />
     <div>
