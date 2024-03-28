@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import mercadopage from "mercadopago";
+import Mailgun from "mailgun.js";
+const mailgun = new Mailgun(FormData);
+const DOMAIN = "sandbox249b93d991cd46279dda6eb7ef9af055.mailgun.org";
+const mg = mailgun.client({
+  username: "api",
+  key: process.env.MAILGUN_API_KEY || "Key not found",
+});
 
 interface PaymentData {
   paid: boolean;
@@ -33,6 +40,31 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
   if (!reservationId || typeof reservationId !== "string") {
     throw new Error("Invalid ID");
   }
+  const htmlContent = `
+        <img src="https://res.cloudinary.com/dipn8zmq3/image/upload/v1709847291/rokqijqiwc0d4mms8ylo.jpg" style="width: 100%; max-width: 100%; max-height: 250px; overflow: hidden; object-fit: cover;" />
+        <h1 style="display:flex; flex-direction: column; align-items: center; justify-content: center; ">
+            Your purchase is done! Feel free to read the description: ${JSON.stringify(
+              paymentBody
+            )}
+            El id de la reserva${reservationId}
+            <button> Quiero presentar una queja </button>
+            <button> Tuve un problema </button>
+        </h1>
+    `;
+  /*Si queremos agregar el email del usuario necesitamos 
+  poner en subject el valor de paymentBody.userEmail, 
+  En este caso no lo haremos porque es más facil el testeo*/
+
+  mg.messages
+    .create("sandbox249b93d991cd46279dda6eb7ef9af055.mailgun.org", {
+      from: "oscar_alhuay2001@hotmail.com",
+      to: ["bibarel99@gmail.com"],
+      subject: "Test Mailgun",
+      text: "Testing some Mailgun awesomness! Right?",
+      html: htmlContent,
+    })
+    .then((msg) => console.log(msg))
+    .catch((err) => console.error(err));
   try {
     const result = await mercadopage.preferences.create({
       items: [
