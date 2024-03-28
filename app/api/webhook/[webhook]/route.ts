@@ -73,7 +73,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       mg.messages
         .create("sandbox249b93d991cd46279dda6eb7ef9af055.mailgun.org", {
           from: "oscar_alhuay2001@hotmail.com",
-          to: ["bibarel99@gmail.com"],
+          to: ["bibarel9999@gmail.com"],
           subject: "Test Mailgun",
           text: "Testing some Mailgun awesomness! Right?",
           html: htmlContent,
