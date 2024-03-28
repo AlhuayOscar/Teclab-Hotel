@@ -86,4 +86,5 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
     return NextResponse.json(body);
   }
+  return NextResponse.json("Webhook not working.");
 }
