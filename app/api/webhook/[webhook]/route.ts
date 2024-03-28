@@ -46,7 +46,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         El id del pago realizado por Mercado Pago
 
         <div> 
-        ${parsedBill}
+        ${paymentId}
         </div>
 
 
