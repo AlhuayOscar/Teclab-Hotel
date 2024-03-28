@@ -63,8 +63,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         <button>Tuve un problema</button>
         </div>
       
-        Información del pedido:
-        ${JSON.stringify(body)}
     </div>
 `;
 
