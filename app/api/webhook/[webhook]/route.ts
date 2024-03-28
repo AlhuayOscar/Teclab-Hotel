@@ -41,21 +41,20 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         Your purchase is done! Feel free to read the description: 
 
         <div style="max-width: 300px">
-        ${JSON.stringify(body)}
         </div>
 
         El id del pago realizado por Mercado Pago
 
         <div> 
         ${parsedBill}
-        ${webhookId}
-        </div>
-        
-        <div> 
-        Información del params:
-        ${params}
         </div>
 
+
+        El id de la reserva pagada en HotelZZZ
+        <div> 
+        ${webhookId}
+        </div>
+      
         <div>
         <button>Quiero presentar una queja</button>
         </div>
