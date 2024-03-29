@@ -8,7 +8,7 @@ const mg = mailgun.client({
 });
 
 interface IParams {
-  webhook?: string;
+  reservationId?: string;
 }
 interface PaymentData {
   paymentDate: string;
@@ -18,8 +18,9 @@ interface PaymentData {
 
 export async function POST(request: Request, { params }: { params: IParams }) {
   const body = await request.json();
-  const webhookId = params.webhook;
+  const reservationId = params.reservationId;
   const dateCreated = body.date_created;
+  const mercadoPagoId = body.resource.match(/\d+/)[0];
   const paymentId = body.id;
   const htmlContent = `
     <img src="https://res.cloudinary.com/dipn8zmq3/image/upload/v1709847291/rokqijqiwc0d4mms8ylo.jpg" style="width: 100%; max-width: 100%; max-height: 250px; overflow: hidden; object-fit: cover;" />
@@ -29,16 +30,16 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         <div style="max-width: 300px">
         </div>
 
-        El id del pago realizado por Mercado Pago
+        El id de la transacción realizado mediante Mercado Pago
 
         <div> 
-        ${paymentId}
+        ${mercadoPagoId}
         </div>
 
 
         El id de la reserva pagada en HotelZZZ
         <div> 
-        ${webhookId}
+        ${reservationId}
         </div>
       
         <div>
@@ -48,8 +49,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         <div>
         <button>Tuve un problema</button>
         </div>
-      ${JSON.stringify(body)}
-      ${JSON.stringify(params)}
     </div>
 `;
 
@@ -70,7 +69,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
   if (paymentId) {
     const parsedBill = paymentId.toString();
-    if (webhookId && body.action === "payment.created" && parsedBill) {
+    if (reservationId && body.action === "payment.created" && parsedBill) {
       const paymentData: PaymentData = {
         paid: true,
         paymentDate: dateCreated,
@@ -78,7 +77,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       };
       const updatedReservation = await prisma.reservation.update({
         where: {
-          id: webhookId,
+          id: reservationId,
         },
         data: paymentData,
       });
