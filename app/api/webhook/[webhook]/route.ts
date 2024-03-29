@@ -32,7 +32,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         ${body}
         ${JSON.stringify(body)}
         ${paymentId}
-        ${params} 
+        ${JSON.stringify(params)} 
         El id de la transacción realizado mediante Mercado Pago
 
         <div> 
