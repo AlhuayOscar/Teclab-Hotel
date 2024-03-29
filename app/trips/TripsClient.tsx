@@ -46,7 +46,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
   return (
     <Container>
       <div className="pt-24 md:pt-40 flex flex-wrap gap-4">
-        {reservations.map((reservation: any) => (
+        {reservations.map((reservation: SafeReservation) => (
           <ListingCard
             key={reservation.id}
             data={reservation.listing}
@@ -55,8 +55,9 @@ const TripsClient: React.FC<TripsClientProps> = ({
             onAction={onCancel}
             disabled={deletingId === reservation.id}
             actionLabel="Cancel reservation"
-            payLabel="MercadoPago Check-Out"
+            payLabel={!reservation.paid ? "MercadoPago Check-Out" : ""}
             currentUser={currentUser}
+            paid={reservation.paid}
           />
         ))}
       </div>

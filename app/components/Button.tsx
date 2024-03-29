@@ -9,6 +9,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   payment?: boolean;
+  paid?: boolean;
   icon?: IconType;
 }
 
@@ -18,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   outline,
   small,
+  paid,
   payment,
   icon: Icon,
 }) => {
@@ -33,13 +35,16 @@ const Button: React.FC<ButtonProps> = ({
     hover:opacity-80
     transition
     w-full
-    ${
-      outline
-        ? "bg-white border-black text-black"
-        : payment
-        ? "bg-gradient-to-br from-[#4682B4] via-[#4682B4] to-[#ADD8E6] text-white"
-        : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700] text-white"
-    }
+${
+  outline
+    ? "bg-white border-black text-black"
+    : payment
+    ? "bg-gradient-to-br from-[#4682B4] via-[#4682B4] to-[#ADD8E6] text-white"
+    : paid
+    ? "bg-gradient-to-br from-[#32a852] via-[#32a852] to-[#5fd976] text-white"
+    : "bg-gradient-to-br from-[#ad8b33] to-[#FFD700] text-white"
+}
+
     ${
       small
         ? "text-sm py-1 font-light border-[1px]"

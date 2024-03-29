@@ -1,5 +1,7 @@
 "use client";
 import Image from "next/image";
+import { toast } from "react-hot-toast";
+
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
@@ -17,6 +19,7 @@ interface ListingCardProps {
   disabled?: boolean;
   actionLabel?: string;
   payLabel?: string;
+  paid?: boolean;
   actionId?: string;
   currentUser?: SafeUser | null;
 }
@@ -27,6 +30,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   onAction,
   disabled,
   actionLabel,
+  paid,
   payLabel,
   actionId = "",
   currentUser,
@@ -48,7 +52,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
     },
     [disabled, onAction, actionId]
   );
-
+  const isPaid = paid;
+  function handleNone() {
+    return toast("Thanks! It's already paid, Have a great day ", {
+      icon: "👍",
+    });
+  }
   const handlePay = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
@@ -101,7 +110,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   return (
     <div
-      onClick={() => router.push(`/listings/${data.id}`)}
+      onClick={isPaid ? undefined : () => router.push(`/listings/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-ful">
@@ -128,6 +137,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
               transition
               justify-center items-center self-center
             "
+            onClick={
+              isPaid ? () => router.push(`/listings/${data.id}`) : undefined
+            }
             src={data.imageSrc}
             alt="Listing"
           />
@@ -162,6 +174,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="font-semibold">$ {price}</div>
           {!reservation && <div className="font-light">night</div>}
         </div>
+
         {onAction && payLabel && actionLabel && (
           <>
             <Button
@@ -178,6 +191,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
               onClick={handleCancel}
             />
           </>
+        )}
+        {isPaid ? (
+          <Button
+            disabled={disabled}
+            small
+            paid
+            label={"Done"}
+            onClick={handleNone}
+          />
+        ) : (
+          <></>
         )}
       </div>
     </div>

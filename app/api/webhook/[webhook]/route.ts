@@ -30,24 +30,24 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         </h3>
         <div style="max-width: 300px">
         </div>
-        El id de la transacción realizado mediante Mercado Pago
+        The transaction ID is:
 
         <div> 
         ${mercadoPagoId}
         </div>
 
 
-        El id de la reserva pagada en HotelZZZ
+        The HotelZZZ reservation room ID is:
         <div> 
         ${reservationId}
         </div>
       
         <div>
-        <button>Quiero presentar una queja</button>
+        <button>I want a refund</button>
         </div>
 
         <div>
-        <button>Tuve un problema</button>
+        <button>I had a problem</button>
         </div>
     </div>
 `;
