@@ -67,7 +67,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       })
       .then((msg) => console.log(msg))
       .catch((err) => console.error(err));
-    if (reservationId) {
+    if (paymentId) {
       const parsedBill = paymentId.toString();
       if (mercadoPagoId && body.action === "payment.created" && parsedBill) {
         const paymentData: PaymentData = {
