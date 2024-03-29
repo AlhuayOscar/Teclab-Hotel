@@ -67,17 +67,16 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       })
       .then((msg) => console.log(msg))
       .catch((err) => console.error(err));
-    if (paymentId) {
-      const parsedBill = paymentId.toString();
-      if (mercadoPagoId && body.action === "payment.created" && parsedBill) {
+    if (reservationId) {
+      if (mercadoPagoId) {
         const paymentData: PaymentData = {
           paid: true,
           paymentDate: dateCreated,
-          bill: parsedBill,
+          bill: mercadoPagoId,
         };
         const updatedReservation = await prisma.reservation.update({
           where: {
-            id: mercadoPagoId,
+            id: reservationId,
           },
           data: paymentData,
         });
