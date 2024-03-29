@@ -3,7 +3,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { format } from "date-fns";
 import axios from "axios"; // Importa Axios
 
@@ -39,6 +39,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
+  const [showPayButton, setShowPayButton] = useState(true);
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,6 +66,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       if (disabled) {
         return;
       }
+      setShowPayButton(false);
       try {
         const now = new Date();
         const userId = currentUser?.id;
@@ -174,22 +176,27 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="font-semibold">$ {price}</div>
           {!reservation && <div className="font-light">night</div>}
         </div>
-
         {onAction && payLabel && actionLabel && (
           <>
-            <Button
-              disabled={disabled}
-              small
-              payment
-              label={payLabel}
-              onClick={handlePay}
-            />
-            <Button
-              disabled={disabled}
-              small
-              label={actionLabel}
-              onClick={handleCancel}
-            />
+            {!showPayButton && <h3>You'll be redirected to a new page</h3>}
+            {showPayButton && (
+              <>
+                <Button
+                  disabled={disabled}
+                  small
+                  payment
+                  label={payLabel}
+                  onClick={handlePay}
+                />
+
+                <Button
+                  disabled={disabled}
+                  small
+                  label={actionLabel}
+                  onClick={handleCancel}
+                />
+              </>
+            )}
           </>
         )}
         {isPaid ? (
