@@ -25,8 +25,30 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     <img src="https://res.cloudinary.com/dipn8zmq3/image/upload/v1709847291/rokqijqiwc0d4mms8ylo.jpg" style="width: 100%; max-width: 100%; max-height: 250px; overflow: hidden; object-fit: cover;" />
     <div>
         Your purchase is done! Feel free to read the description: 
+
         <div style="max-width: 300px">
         </div>
+
+        El id del pago realizado por Mercado Pago
+
+        <div> 
+        ${paymentId}
+        </div>
+
+
+        El id de la reserva pagada en HotelZZZ
+        <div> 
+        ${webhookId}
+        </div>
+      
+        <div>
+        <button>Quiero presentar una queja</button>
+        </div>
+
+        <div>
+        <button>Tuve un problema</button>
+        </div>
+      ${JSON.stringify(body)}
     </div>
 `;
 
@@ -44,7 +66,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     })
     .then((msg) => console.log(msg))
     .catch((err) => console.error(err));
-    
+
   if (paymentId) {
     const parsedBill = paymentId.toString();
     if (webhookId && body.action === "payment.created" && parsedBill) {
