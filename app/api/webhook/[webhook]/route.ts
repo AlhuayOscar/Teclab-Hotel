@@ -8,7 +8,7 @@ const mg = mailgun.client({
 });
 
 interface IParams {
-  webhookId?: string;
+  webhook?: string;
 }
 interface PaymentData {
   paymentDate: string;
@@ -18,7 +18,7 @@ interface PaymentData {
 
 export async function POST(request: Request, { params }: { params: IParams }) {
   const body = await request.json();
-  const webhookId = params.webhookId;
+  const reservationId = params.webhook;
   const dateCreated = body.date_created;
   const mercadoPagoId = body.resource.match(/\d+/)[0];
   const paymentId = body.id;
@@ -29,10 +29,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
         <div style="max-width: 300px">
         </div>
-        ${body}
-        ${JSON.stringify(body)}
-        ${paymentId}
-        ${JSON.stringify(params)} 
         El id de la transacción realizado mediante Mercado Pago
 
         <div> 
@@ -42,7 +38,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
         El id de la reserva pagada en HotelZZZ
         <div> 
-        ${webhookId}
+        ${reservationId}
         </div>
       
         <div>
@@ -70,7 +66,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       })
       .then((msg) => console.log(msg))
       .catch((err) => console.error(err));
-    if (paymentId) {
+    if (reservationId) {
       const parsedBill = paymentId.toString();
       if (mercadoPagoId && body.action === "payment.created" && parsedBill) {
         const paymentData: PaymentData = {
