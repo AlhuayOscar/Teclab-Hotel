@@ -56,36 +56,39 @@ export async function POST(request: Request, { params }: { params: IParams }) {
   poner en subject el valor de paymentBody.userEmail, 
   En este caso no lo haremos porque es más facil el testeo*/
 
-  mg.messages
-    .create("sandbox249b93d991cd46279dda6eb7ef9af055.mailgun.org", {
-      from: "oscar_alhuay2001@hotmail.com",
-      to: ["bibarel9999@gmail.com"],
-      subject: "Test Mailgun",
-      text: "Testing some Mailgun awesomness! Right?",
-      html: htmlContent,
-    })
-    .then((msg) => console.log(msg))
-    .catch((err) => console.error(err));
+  try {
+    mg.messages
+      .create("sandbox249b93d991cd46279dda6eb7ef9af055.mailgun.org", {
+        from: "oscar_alhuay2001@hotmail.com",
+        to: ["bibarel9999@gmail.com"],
+        subject: "Test Mailgun",
+        text: "Testing some Mailgun awesomeness! Right?",
+        html: htmlContent,
+      })
+      .then((msg) => console.log(msg))
+      .catch((err) => console.error(err));
+    if (paymentId) {
+      const parsedBill = paymentId.toString();
+      if (mercadoPagoId && body.action === "payment.created" && parsedBill) {
+        const paymentData: PaymentData = {
+          paid: true,
+          paymentDate: dateCreated,
+          bill: parsedBill,
+        };
+        const updatedReservation = await prisma.reservation.update({
+          where: {
+            id: mercadoPagoId,
+          },
+          data: paymentData,
+        });
+      }
 
-  if (paymentId) {
-    const parsedBill = paymentId.toString();
-    if (reservationId && body.action === "payment.created" && parsedBill) {
-      const paymentData: PaymentData = {
-        paid: true,
-        paymentDate: dateCreated,
-        bill: parsedBill,
-      };
-      const updatedReservation = await prisma.reservation.update({
-        where: {
-          id: reservationId,
-        },
-        data: paymentData,
-      });
+      console.log("Pago realizado");
+
+      return NextResponse.json(body);
     }
-
-    console.log("Pago realizado");
-
-    return NextResponse.json(body);
+  } catch (error) {
+    return NextResponse.json("Webhook not working.");
   }
   return NextResponse.json("Webhook not working.");
 }
