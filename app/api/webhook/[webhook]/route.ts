@@ -29,7 +29,10 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
         <div style="max-width: 300px">
         </div>
-
+        ${body}
+        ${JSON.stringify(body)}
+        ${paymentId}
+        ${params} 
         El id de la transacción realizado mediante Mercado Pago
 
         <div> 
