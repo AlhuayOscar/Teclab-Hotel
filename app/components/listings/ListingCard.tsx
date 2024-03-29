@@ -178,7 +178,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
         {onAction && payLabel && actionLabel && (
           <>
-            {!showPayButton && <h3>You'll be redirected to a new page</h3>}
+            {!showPayButton && <h3>You&apos;ll be redirected to a new page</h3>}
             {showPayButton && (
               <>
                 <Button
