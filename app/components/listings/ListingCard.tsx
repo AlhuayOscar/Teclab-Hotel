@@ -131,14 +131,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
         >
           <Image
             fill
-            className="
-              object-cover 
-              min-h-36 
-              min-w-36
-              group-hover:scale-110 
-              transition
-              justify-center items-center self-center
-            "
+            className={`
+             object-cover 
+             min-h-36 
+             min-w-36
+             group-hover:scale-110 
+             transition
+             justify-center 
+             items-center 
+             self-center
+             ${isPaid ? "brightness-50" : ""}
+            `}
             onClick={
               isPaid ? () => router.push(`/listings/${data.id}`) : undefined
             }
