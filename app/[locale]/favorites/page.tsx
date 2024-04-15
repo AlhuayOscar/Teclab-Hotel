@@ -1,9 +1,9 @@
 
-import EmptyState from "@/app/components/EmptyState";
-import ClientOnly from "@/app/components/ClientOnly";
+import EmptyState from "@/app/[locale]/components/EmptyState";
+import ClientOnly from "@/app/[locale]/components/ClientOnly";
 
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import getFavoriteListings from "@/app/actions/getFavoriteListings";
+import getCurrentUser from "@/app/[locale]/actions/getCurrentUser";
+import getFavoriteListings from "@/app/[locale]/actions/getFavoriteListings";
 
 import FavoritesClient from "./FavoritesClient";
 
