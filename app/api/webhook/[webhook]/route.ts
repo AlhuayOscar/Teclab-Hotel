@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/app/[locale]/libs/prismadb";
+import prisma from "@/app/libs/prismadb";
 import Mailgun from "mailgun.js";
 const mailgun = new Mailgun(FormData);
 const mg = mailgun.client({

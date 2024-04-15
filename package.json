@@ -11,6 +11,7 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
     "@next-auth/prisma-adapter": "^1.0.7",
+    "@types/negotiator": "^0.6.3",
     "@prisma/client": "^5.10.2",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",

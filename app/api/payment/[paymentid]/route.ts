@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import getCurrentUser from "@/app/[locale]/actions/getCurrentUser";
-import prisma from "@/app/[locale]/libs/prismadb";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import prisma from "@/app/libs/prismadb";
 import mercadopage from "mercadopago";
 import Mailgun from "mailgun.js";
 const mailgun = new Mailgun(FormData);
