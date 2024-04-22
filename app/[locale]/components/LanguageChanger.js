@@ -26,15 +26,12 @@ export default function LanguageChanger() {
       currentLocale === i18nConfig.defaultLocale &&
       !i18nConfig.prefixDefault
     ) {
-      console.log("danm");
       router.push("/" + newLocale + currentPathname);
     } else {
       router.push(
         currentPathname.replace(`/${currentLocale}`, `/${newLocale}`)
       );
     }
-console.log("It's refreshed");
-    router.refresh();
   };
 
   return (
@@ -44,3 +41,4 @@ console.log("It's refreshed");
     </select>
   );
 }
+

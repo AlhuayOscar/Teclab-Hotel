@@ -70,7 +70,7 @@ const Categories = () => {
   const params = useSearchParams();
   const category = params?.get("category");
   const pathname = usePathname();
-  const isMainPage = pathname === "/";
+  const isMainPage = pathname === "/" || "es" || "en";
 
   if (!isMainPage) {
     return null;

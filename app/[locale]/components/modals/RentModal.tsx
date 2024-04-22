@@ -13,12 +13,16 @@ import Modal from "./Modal";
 import Counter from "../inputs/Counter";
 import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
-import { categories } from "../navbar/Categories";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 
+import { TbBeach, TbMountain } from "react-icons/tb";
+import { GiBoatFishing, GiField, GiForestCamp } from "react-icons/gi";
+import { MdOutlineVilla, MdSnowmobile, MdOutlineWbSunny } from "react-icons/md";
+import { FaTreeCity } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -35,6 +39,62 @@ const RentModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
   const { t } = useTranslation();
+  const categories = [
+    {
+      label: t("Beach"),
+      icon: TbBeach,
+      description:
+        "This property is so close to the beach, you might just get sand in your bed!",
+    },
+    {
+      label: t("Modern"),
+      icon: MdOutlineVilla,
+      description: "This property is as modern as a robot butler!",
+    },
+    {
+      label: t("Mountain"),
+      icon: TbMountain,
+      description:
+        "This property is nestled in the countryside like a cozy bear den!",
+    },
+
+    {
+      label: t("Lake"),
+      icon: GiBoatFishing,
+      description:
+        "This property is so close to the lake, you'll be casting shadows on the fish!",
+    },
+    {
+      label: t("Camping"),
+      icon: GiForestCamp,
+      description:
+        "This property offers camping activities that'll make you a happy camper!",
+    },
+    {
+      label: t("Cold"),
+      icon: MdSnowmobile,
+      description:
+        "This property is so chilly, you'll need a penguin as a roommate!",
+    },
+    {
+      label: t("Warm"),
+      icon: MdOutlineWbSunny,
+      description:
+        "This property is as sunny as a desert vacation without the sand in your shoes!",
+    },
+    {
+      label: t("Quiet"),
+      icon: GiField,
+      description:
+        "This property is nestled in a barn, so peaceful even the mice whisper!",
+    },
+    {
+      label: t("Spacious"),
+      icon: FaTreeCity,
+      description:
+        "This property is as spacious and luxurious as a castle fit for a king!",
+    },
+  ];
   const {
     register,
     handleSubmit,
@@ -129,10 +189,7 @@ const RentModal = () => {
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
-      <Heading
-        title={t("title")}
-        subtitle="Pick a category"
-      />
+      <Heading title={t("rentTitle")} subtitle={t("rentSubtitle")} />
       <div
         className="
           grid 
@@ -261,7 +318,7 @@ const RentModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={rentModal.isOpen}
-      title={t("mainTitle")}
+      title={t("rentMainTitle")}
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondaryActionLabel}

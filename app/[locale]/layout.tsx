@@ -12,7 +12,7 @@ import { Toaster } from "react-hot-toast";
 import initTranslations from "./i18n";
 import TranslationsProvider from "./components/TranslationsProvider";
 
-const i18nNamespaces = ["rentModal", "Categories"];
+const i18nNamespaces = ["page"];
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
