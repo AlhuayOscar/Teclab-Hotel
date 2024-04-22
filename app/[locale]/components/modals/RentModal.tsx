@@ -18,6 +18,7 @@ import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 
+import { useTranslation } from "react-i18next";
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -33,7 +34,7 @@ const RentModal = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
-
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -129,7 +130,7 @@ const RentModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Which of these best describes your place?"
+        title={t("title")}
         subtitle="Pick a category"
       />
       <div
@@ -200,9 +201,7 @@ const RentModal = () => {
   if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading
-          title="Add a photo of your place"
-        />
+        <Heading title="Add a photo of your place" />
         <ImageUpload
           onChange={(value) => setCustomValue("imageSrc", value)}
           className={""}
@@ -215,9 +214,7 @@ const RentModal = () => {
   if (step === STEPS.DESCRIPTION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading
-          title="How would you describe your place?"
-        />
+        <Heading title="How would you describe your place?" />
         <Input
           id="title"
           label="Title"
@@ -264,7 +261,7 @@ const RentModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={rentModal.isOpen}
-      title="Rent your property"
+      title={t("mainTitle")}
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondaryActionLabel}
