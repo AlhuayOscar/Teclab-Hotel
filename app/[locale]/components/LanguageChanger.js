@@ -26,21 +26,21 @@ export default function LanguageChanger() {
       currentLocale === i18nConfig.defaultLocale &&
       !i18nConfig.prefixDefault
     ) {
+      console.log("danm");
       router.push("/" + newLocale + currentPathname);
     } else {
       router.push(
         currentPathname.replace(`/${currentLocale}`, `/${newLocale}`)
       );
     }
-
+console.log("It's refreshed");
     router.refresh();
   };
 
   return (
     <select onChange={handleChange} value={currentLocale}>
       <option value="en">English</option>
-      <option value="it">Italian</option>
-      <option value="fr">French</option>
+      <option value="es">Spanish</option>
     </select>
   );
 }

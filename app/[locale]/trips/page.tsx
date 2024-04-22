@@ -15,7 +15,7 @@ const TripsPage = async () => {
       <ClientOnly>
         <EmptyState
           title="Unauthorized"
-          subtitle="Please login"
+          subtitle="Please login" 
         />
       </ClientOnly>
     );
