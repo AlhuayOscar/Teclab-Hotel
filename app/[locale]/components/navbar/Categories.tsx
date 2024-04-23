@@ -72,16 +72,26 @@ const Categories = () => {
 
   useEffect(() => {
     let lastScrollTop = 0;
+    let scrolledDownEnough = false;
+
     const handleScroll = () => {
       const currentScrollTop =
         window.scrollY || document?.documentElement.scrollTop;
+
       if (currentScrollTop > lastScrollTop) {
         // Scrolling down
-        setIsShowing(false);
+        if (currentScrollTop >= 75) {
+          scrolledDownEnough = true;
+          setIsShowing(false);
+        }
       } else {
         // Scrolling up
-        setIsShowing(true);
+        if (scrolledDownEnough || currentScrollTop === 0) {
+          setIsShowing(true);
+          scrolledDownEnough = false;
+        }
       }
+
       lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // For Mobile or negative scrolling
     };
 
