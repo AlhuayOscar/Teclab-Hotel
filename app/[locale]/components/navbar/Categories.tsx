@@ -64,10 +64,7 @@ const Categories = () => {
     },
   ];
   const pathname = usePathname() || "";
-  const isMainPage = /^\/(es|en)?$/.test(pathname);
-  if (!isMainPage) {
-    return null;
-  }
+
   const [isShowing, setIsShowing] = useState(true);
 
   useEffect(() => {
@@ -101,7 +98,11 @@ const Categories = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  
+  const isMainPage = /^\/(es|en)?$/.test(pathname);
+  if (!isMainPage) {
+    return null;
+  }
   return (
     <Container>
       <Transition
