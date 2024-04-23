@@ -1,3 +1,4 @@
+"use client";
 import { SafeUser } from "@/app/[locale]/types";
 
 import Categories from "./Categories";

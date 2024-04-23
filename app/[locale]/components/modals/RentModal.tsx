@@ -219,90 +219,89 @@ const RentModal = () => {
     );
   }
 
-if (step === STEPS.INFO) {
-  bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading title={t("infoTitle")} />
-      <Counter
-        onChange={(value) => setCustomValue("guestCount", value)}
-        value={guestCount}
-        title={t("guestsTitle")}
-        subtitle={t("guestsSubtitle")}
-      />
-      <hr />
-      <Counter
-        onChange={(value) => setCustomValue("roomCount", value)}
-        value={roomCount}
-        title={t("roomsTitle")}
-        subtitle={t("roomsSubtitle")}
-      />
-      <hr />
-      <Counter
-        onChange={(value) => setCustomValue("bathroomCount", value)}
-        value={bathroomCount}
-        title={t("bathroomsTitle")}
-        subtitle={t("bathroomsSubtitle")}
-      />
-    </div>
-  );
-}
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title={t("infoTitle")} />
+        <Counter
+          onChange={(value) => setCustomValue("guestCount", value)}
+          value={guestCount}
+          title={t("guestsTitle")}
+          subtitle={t("guestsSubtitle")}
+        />
+        <hr />
+        <Counter
+          onChange={(value) => setCustomValue("roomCount", value)}
+          value={roomCount}
+          title={t("roomsTitle")}
+          subtitle={t("roomsSubtitle")}
+        />
+        <hr />
+        <Counter
+          onChange={(value) => setCustomValue("bathroomCount", value)}
+          value={bathroomCount}
+          title={t("bathroomsTitle")}
+          subtitle={t("bathroomsSubtitle")}
+        />
+      </div>
+    );
+  }
 
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title={t("imagesTitle")} />
+        <ImageUpload
+          onChange={(value) => setCustomValue("imageSrc", value)}
+          className={""}
+          value={imageSrc}
+        />
+      </div>
+    );
+  }
 
-if (step === STEPS.IMAGES) {
-  bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading title={t("imagesTitle")} />
-      <ImageUpload
-        onChange={(value) => setCustomValue("imageSrc", value)}
-        className={""}
-        value={imageSrc}
-      />
-    </div>
-  );
-}
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title={t("descriptionTitle")} />
+        <Input
+          id="title"
+          label={t("titleLabel")}
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label={t("descriptionLabel")}
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
 
-if (step === STEPS.DESCRIPTION) {
-  bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading title={t("descriptionTitle")} />
-      <Input
-        id="title"
-        label={t("titleLabel")}
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <hr />
-      <Input
-        id="description"
-        label={t("descriptionLabel")}
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-    </div>
-  );
-}
-
-if (step === STEPS.PRICE) {
-  bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading title={t("priceTitle")} subtitle={t("priceSubtitle")} />
-      <Input
-        id="price"
-        label={t("priceLabel")}
-        formatPrice
-        type="number"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-    </div>
-  );
-}
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title={t("priceTitle")} subtitle={t("priceSubtitle")} />
+        <Input
+          id="price"
+          label={t("priceLabel")}
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
 
   return (
     <Modal
