@@ -7,11 +7,13 @@ import { differenceInDays } from "date-fns";
 
 import useSearchModal from "@/app/[locale]/hooks/useSearchModal";
 import useCountries from "@/app/[locale]/hooks/useCountries";
+import { useTranslation } from "react-i18next";
 
 const Search = () => {
   const searchModal = useSearchModal();
   const params = useSearchParams();
   const { getByValue } = useCountries();
+  const { t } = useTranslation();
 
   const locationValue = params?.get("locationValue");
   const startDate = params?.get("startDate");
@@ -23,7 +25,7 @@ const Search = () => {
       return getByValue(locationValue as string)?.label;
     }
 
-    return "Hotel Rooms";
+    return (t("hotelRooms"));
   }, [locationValue, getByValue]);
 
   const durationLabel = useMemo(() => {
@@ -36,18 +38,18 @@ const Search = () => {
         diff = 1;
       }
 
-      return `${diff} Days`;
+      return `${diff} ${t("days")}`;
     }
 
-    return "Beach Houses";
+    return (t("beachHouses"));
   }, [startDate, endDate]);
 
   const guestLabel = useMemo(() => {
     if (guestCount) {
-      return `${guestCount} Persons`;
+      return `${guestCount} ${t("persons")}`;
     }
 
-    return "in 1 click";
+    return (t("click"));
   }, [guestCount]);
 
   return (

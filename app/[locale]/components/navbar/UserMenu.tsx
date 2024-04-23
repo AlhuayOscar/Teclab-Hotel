@@ -9,6 +9,7 @@ import useLoginModal from "@/app/[locale]/hooks/useLoginModal";
 import useRegisterModal from "@/app/[locale]/hooks/useRegisterModal";
 import useRentModal from "@/app/[locale]/hooks/useRentModal";
 import { SafeUser } from "@/app/[locale]/types";
+import { useTranslation } from "react-i18next";
 
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
@@ -23,6 +24,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const rentModal = useRentModal();
+  const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -56,7 +58,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             cursor-pointer
           "
         >
-          Be a room owner
+          {t("roomOwner")}
         </div>
         <div
           onClick={toggleOpen}
@@ -102,34 +104,34 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               <>
                 {currentUser && (
                   <MenuItem
-                    label="My profile"
+                    label={t("myProfile")}
                     onClick={() => router.push("/profiles")}
                   />
                 )}
                 <MenuItem
-                  label="My trips"
+                  label={t("myTrips")}
                   onClick={() => router.push("/trips")}
                 />
                 <MenuItem
-                  label="My favorites"
+                  label={t("myFavorites")}
                   onClick={() => router.push("/favorites")}
                 />
                 <MenuItem
-                  label="My reservations"
+                  label={t("myReservations")}
                   onClick={() => router.push("/reservations")}
                 />
                 <MenuItem
-                  label="My properties"
+                  label={t("myProperties")}
                   onClick={() => router.push("/properties")}
                 />
-                <MenuItem label="Be a room owner" onClick={rentModal.onOpen} />
+                <MenuItem label={t("roomOwner")} onClick={rentModal.onOpen} />
                 <hr />
-                <MenuItem label="Logout" onClick={() => signOut()} />
+                <MenuItem label={t("logout")} onClick={() => signOut()} />
               </>
             ) : (
               <>
-                <MenuItem label="Login" onClick={loginModal.onOpen} />
-                <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                <MenuItem label={t("login")} onClick={loginModal.onOpen} />
+                <MenuItem label={t("signup")} onClick={registerModal.onOpen} />
               </>
             )}
           </div>

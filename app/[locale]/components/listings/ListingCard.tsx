@@ -11,6 +11,7 @@ import useCountries from "@/app/[locale]/hooks/useCountries";
 import { SafeListing, SafeReservation, SafeUser } from "@/app/[locale]/types";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
+import { useTranslation } from "react-i18next";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -23,7 +24,12 @@ interface ListingCardProps {
   actionId?: string;
   currentUser?: SafeUser | null;
 }
-
+interface Category {
+  label: string;
+}
+interface Categories {
+  [key: string]: Category;
+}
 const ListingCard: React.FC<ListingCardProps> = ({
   data,
   reservation,
@@ -40,7 +46,40 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   const location = getByValue(data.locationValue);
   const [showPayButton, setShowPayButton] = useState(true);
+  const { t } = useTranslation();
 
+  const categories: Categories = {
+    "Beach House": {
+      label: t("Beach"),
+    },
+    "Modern Apartment": {
+      label: t("Modern"),
+    },
+    "Mountain House": {
+      label: t("Mountain"),
+    },
+    "Lake House": {
+      label: t("Lake"),
+    },
+    "Camping Huts": {
+      label: t("Camping"),
+    },
+    "Cold Areas": {
+      label: t("Cold"),
+    },
+    "Warm Areas": {
+      label: t("Warm"),
+    },
+    "Quiet Area": {
+      label: t("Quiet"),
+    },
+    "Big Apartments": {
+      label: t("Spacious"),
+    },
+  };
+  const category = useMemo(() => {
+    return categories?.[data.category];
+  }, [data.category]);
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
@@ -55,7 +94,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   );
   const isPaid = paid;
   function handleNone() {
-    return toast("Thanks! It's already paid, Have a great day ", {
+    return toast(t("paidTrip"), {
       icon: "👍",
     });
   }
@@ -173,15 +212,15 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
 
         <div className="font-light text-neutral-500">
-          {reservationDate || data.category}
+          {reservationDate || (category && category.label)}
         </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">$ {price}</div>
-          {!reservation && <div className="font-light">night</div>}
+          {!reservation && <div className="font-light">{t("perNight")}</div>}
         </div>
         {onAction && payLabel && actionLabel && (
           <>
-            {!showPayButton && <h3>You&apos;ll be redirected to a new page</h3>}
+            {!showPayButton && <h3>{t("payRedir")}</h3>}
             {showPayButton && (
               <>
                 <Button
@@ -207,7 +246,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             disabled={disabled}
             small
             paid
-            label={"Done"}
+            label={t("done")}
             onClick={handleNone}
           />
         ) : (

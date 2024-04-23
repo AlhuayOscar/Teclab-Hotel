@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "pages/not-found.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "pages/not-found.js", "app/[locale]/components/LanguageChanger.js", "app/[locale]/components/TranslationsProvider.js"],
   "exclude": ["node_modules"]
 }

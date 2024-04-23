@@ -37,7 +37,7 @@ export default function LanguageChanger() {
   return (
     <select onChange={handleChange} value={currentLocale}>
       <option value="en">English</option>
-      <option value="es">Spanish</option>
+      <option value="es">Español</option>
     </select>
   );
 }

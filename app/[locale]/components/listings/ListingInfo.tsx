@@ -7,6 +7,7 @@ import useCountries from "@/app/[locale]/hooks/useCountries";
 import { SafeUser } from "@/app/[locale]/types";
 
 import ListingCategory from "./ListingCategory";
+import { useTranslation } from "react-i18next";
 
 const Map = dynamic(() => import('../Map'), { 
   ssr: false 
@@ -36,13 +37,14 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   locationValue,
 }) => {
   const { getByValue } = useCountries();
+  const { t } = useTranslation();
 
   const coordinates = getByValue(locationValue)?.latlng
 
-  return ( 
+  return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <div 
+        <div
           className="
             text-xl 
             font-semibold 
@@ -52,9 +54,13 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             gap-2
           "
         >
-          <div>Hosted by {user?.name}</div>
+          <div>
+            {t("hosted")}
+            {user?.name}
+          </div>
         </div>
-        <div className="
+        <div
+          className="
             flex 
             flex-row 
             items-center 
@@ -64,33 +70,35 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
           "
         >
           <div>
-            {guestCount} guests
+            {guestCount} {t("guests")}
           </div>
           <div>
-            {roomCount} rooms
+            {roomCount} {t("rooms")}
           </div>
           <div>
-            {bathroomCount} bathrooms
+            {bathroomCount} {t("bath")}
           </div>
         </div>
       </div>
       <hr />
       {category && (
         <ListingCategory
-          icon={category.icon} 
+          icon={category.icon}
           label={category?.label}
-          description={category?.description} 
+          description={category?.description}
         />
       )}
       <hr />
-      <div className="
-      text-lg font-light text-neutral-500">
+      <div
+        className="
+      text-lg font-light text-neutral-500"
+      >
         {description}
       </div>
       <hr />
       <Map center={coordinates} />
     </div>
-   );
+  );
 }
  
 export default ListingInfo;

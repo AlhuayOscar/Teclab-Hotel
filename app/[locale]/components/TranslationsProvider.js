@@ -16,4 +16,3 @@ export default function TranslationsProvider({
 
   return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
 }
-    
