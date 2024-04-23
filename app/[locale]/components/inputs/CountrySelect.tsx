@@ -3,7 +3,7 @@
 import Select from "react-select";
 
 import useCountries from "@/app/[locale]/hooks/useCountries";
-
+import { useTranslation } from "react-i18next";
 export type CountrySelectValue = {
   flag: string;
   label: string;
@@ -18,10 +18,11 @@ interface CountrySelectProps {
 }
 const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
   const { getAll } = useCountries();
+   const { t } = useTranslation();
   return (
     <div>
       <Select
-        placeholder="Find the perfect place"
+        placeholder={t("findPlace")}
         isClearable
         options={getAll()}
         value={value}

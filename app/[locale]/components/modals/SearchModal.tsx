@@ -6,6 +6,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import { formatISO } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 import useSearchModal from "@/app/[locale]/hooks/useSearchModal";
 
@@ -25,6 +26,7 @@ const SearchModal = () => {
   const router = useRouter();
   const searchModal = useSearchModal();
   const params = useSearchParams();
+  const { t } = useTranslation();
 
   const [step, setStep] = useState(STEPS.LOCATION);
 
@@ -80,7 +82,20 @@ const SearchModal = () => {
     if (dateRange.endDate) {
       updatedQuery.endDate = formatISO(dateRange.endDate);
     }
-
+    //ESTO ES ALTAMENTE RIESGOSO A QUE DE ERROR, SI NO SE TRATA COMO:
+    /*    
+    // Construir la URL con o sin la versión internacionalizada
+    const url = qs.stringifyUrl(
+      {
+        url: hasLocale ? currentPath : "/",
+        query: updatedQuery,
+      },
+      { skipNull: true }
+    );
+    router.push(url);
+  }, [label, router, params]); 
+  //Por temas de simplicidad e impactar a la performance no se cambia.
+  */
     const url = qs.stringifyUrl(
       {
         url: "/",
@@ -107,10 +122,10 @@ const SearchModal = () => {
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.INFO) {
-      return "Search";
+      return t("search");
     }
 
-    return "Next";
+    return t("next");
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
@@ -118,12 +133,12 @@ const SearchModal = () => {
       return undefined;
     }
 
-    return "Back";
+    return t("back");
   }, [step]);
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
-      <Heading title="Where do you wanna go?" />
+      <Heading title={t("whereSearch")} />
       <CountrySelect
         value={location}
         onChange={(value) => setLocation(value as CountrySelectValue)}
@@ -136,7 +151,7 @@ const SearchModal = () => {
   if (step === STEPS.DATE) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading title="When do you plan to go?" />
+        <Heading title={t("whenSearch")} />
         <Calendar
           onChange={(value) => setDateRange(value.selection)}
           value={dateRange}
@@ -148,19 +163,19 @@ const SearchModal = () => {
   if (step === STEPS.INFO) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading title="More information" />
+        <Heading title={t("moreInfo")} />
         <Counter
           onChange={(value) => setGuestCount(value)}
           value={guestCount}
-          title="Visitors"
-          subtitle="How many people are coming?"
+          title={t("visitors")}
+          subtitle={t("manyPeople")}
         />
         <hr />
         <Counter
           onChange={(value) => setRoomCount(value)}
           value={roomCount}
-          title="Beds"
-          subtitle="How many beds do you need?"
+          title={t("beds")}
+          subtitle={t("manyBeds")}
         />
         <hr />
         <Counter
@@ -168,8 +183,8 @@ const SearchModal = () => {
             setBathroomCount(value);
           }}
           value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
+          title={t("bath")}
+          subtitle={t("manyBath")}
         />
       </div>
     );
@@ -178,7 +193,7 @@ const SearchModal = () => {
   return (
     <Modal
       isOpen={searchModal.isOpen}
-      title="Filters"
+      title={t("filters")}
       actionLabel={actionLabel}
       onSubmit={onSubmit}
       secondaryActionLabel={secondaryActionLabel}

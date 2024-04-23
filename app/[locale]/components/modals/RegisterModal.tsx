@@ -14,12 +14,13 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
+import { useTranslation } from "react-i18next";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
-
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -38,7 +39,7 @@ const RegisterModal = () => {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success("Registered!");
+        toast.success(t("registerToast"));
         registerModal.onClose();
         loginModal.onOpen();
       })
@@ -57,10 +58,10 @@ const RegisterModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Hotel ZZZ" subtitle="Create an account!" />
+      <Heading title={t("welcomeZZZ")} subtitle={t("createSub")} />
       <Input
         id="email"
-        label="Email"
+        label={t("email")}
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -68,7 +69,7 @@ const RegisterModal = () => {
       />
       <Input
         id="name"
-        label="Name"
+        label={t("name")}
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -76,7 +77,7 @@ const RegisterModal = () => {
       />
       <Input
         id="password"
-        label="Password"
+        label={t("pass")}
         type="password"
         disabled={isLoading}
         register={register}
@@ -91,7 +92,7 @@ const RegisterModal = () => {
       <hr />
       <Button
         outline
-        label="Continue with Google"
+        label={t("googleModal")}
         icon={FcGoogle}
         onClick={() => signIn("google")}
       />
@@ -104,7 +105,7 @@ const RegisterModal = () => {
         "
       >
         <p>
-          Already have an account?
+          {t("alreadyAcc")}
           <span
             onClick={onToggle}
             className="
@@ -114,7 +115,7 @@ const RegisterModal = () => {
             "
           >
             {" "}
-            Log in
+            {t("logInPls")}
           </span>
         </p>
       </div>
@@ -125,8 +126,8 @@ const RegisterModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={registerModal.isOpen}
-      title="Register"
-      actionLabel="Continue"
+      title={t("register")}
+      actionLabel={t("continue")}
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

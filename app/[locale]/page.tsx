@@ -27,7 +27,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   return (
     <ClientOnly>
       <Container>
-        <div className="pt-72 flex flex-wrap gap-4">
+        <div className="pt-72 flex flex-wrap justify-between gap-4">
           {listings.map((listing: any) => (
             <ListingCard
               currentUser={currentUser}

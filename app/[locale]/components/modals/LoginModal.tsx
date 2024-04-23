@@ -14,12 +14,14 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
+import { useTranslation } from "react-i18next";
 
 const LoginModal = () => {
   const router = useRouter();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   const {
     register,
@@ -42,7 +44,7 @@ const LoginModal = () => {
       setIsLoading(false);
 
       if (callback?.ok) {
-        toast.success("Logged in");
+        toast.success(t("logText"));
         router.refresh();
         loginModal.onClose();
       }
@@ -60,10 +62,10 @@ const LoginModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome back" subtitle="Login to your account!" />
+      <Heading title={t("welcome")} subtitle={t("logInModal")}/>
       <Input
         id="email"
-        label="Email"
+        label={t("email")}
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -71,7 +73,7 @@ const LoginModal = () => {
       />
       <Input
         id="password"
-        label="Password"
+        label={t("pass")}
         type="password"
         disabled={isLoading}
         register={register}
@@ -86,7 +88,7 @@ const LoginModal = () => {
       <hr />
       <Button
         outline
-        label="Continue with Google"
+        label={t("googleModal")}
         icon={FcGoogle}
         onClick={() => signIn("google")}
       />
@@ -95,7 +97,7 @@ const LoginModal = () => {
       text-neutral-500 text-center mt-4 font-light"
       >
         <p>
-          First time using Hotelzz?
+          {t("firstTime")}
           <span
             onClick={onToggle}
             className="
@@ -105,7 +107,7 @@ const LoginModal = () => {
             "
           >
             {" "}
-            Create an account
+            {t("createAcc")}
           </span>
         </p>
       </div>
@@ -116,8 +118,8 @@ const LoginModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Continue"
+      title={t("login")}
+      actionLabel={t("continue")}
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

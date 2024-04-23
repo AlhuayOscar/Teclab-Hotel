@@ -209,7 +209,7 @@ const RentModal = () => {
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading title="Where is your place located?" />
+        <Heading title={t("locationTitle")} />
         <CountrySelect
           value={location}
           onChange={(value) => setCustomValue("location", value)}
@@ -219,92 +219,90 @@ const RentModal = () => {
     );
   }
 
-  if (step === STEPS.INFO) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading title="Share some basics about your place" />
-        <Counter
-          onChange={(value) => setCustomValue("guestCount", value)}
-          value={guestCount}
-          title="Guests"
-          subtitle="How many guests do you allow?"
-        />
-        <hr />
-        <Counter
-          onChange={(value) => setCustomValue("roomCount", value)}
-          value={roomCount}
-          title="Rooms"
-          subtitle="How many rooms do you have?"
-        />
-        <hr />
-        <Counter
-          onChange={(value) => setCustomValue("bathroomCount", value)}
-          value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bathrooms do you have?"
-        />
-      </div>
-    );
-  }
+if (step === STEPS.INFO) {
+  bodyContent = (
+    <div className="flex flex-col gap-8">
+      <Heading title={t("infoTitle")} />
+      <Counter
+        onChange={(value) => setCustomValue("guestCount", value)}
+        value={guestCount}
+        title={t("guestsTitle")}
+        subtitle={t("guestsSubtitle")}
+      />
+      <hr />
+      <Counter
+        onChange={(value) => setCustomValue("roomCount", value)}
+        value={roomCount}
+        title={t("roomsTitle")}
+        subtitle={t("roomsSubtitle")}
+      />
+      <hr />
+      <Counter
+        onChange={(value) => setCustomValue("bathroomCount", value)}
+        value={bathroomCount}
+        title={t("bathroomsTitle")}
+        subtitle={t("bathroomsSubtitle")}
+      />
+    </div>
+  );
+}
 
-  if (step === STEPS.IMAGES) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading title="Add a photo of your place" />
-        <ImageUpload
-          onChange={(value) => setCustomValue("imageSrc", value)}
-          className={""}
-          value={imageSrc}
-        />
-      </div>
-    );
-  }
 
-  if (step === STEPS.DESCRIPTION) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading title="How would you describe your place?" />
-        <Input
-          id="title"
-          label="Title"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
-        <hr />
-        <Input
-          id="description"
-          label="Description"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
-      </div>
-    );
-  }
+if (step === STEPS.IMAGES) {
+  bodyContent = (
+    <div className="flex flex-col gap-8">
+      <Heading title={t("imagesTitle")} />
+      <ImageUpload
+        onChange={(value) => setCustomValue("imageSrc", value)}
+        className={""}
+        value={imageSrc}
+      />
+    </div>
+  );
+}
 
-  if (step === STEPS.PRICE) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Now, set your price"
-          subtitle="How much do you charge per night?"
-        />
-        <Input
-          id="price"
-          label="Price"
-          formatPrice
-          type="number"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
-      </div>
-    );
-  }
+if (step === STEPS.DESCRIPTION) {
+  bodyContent = (
+    <div className="flex flex-col gap-8">
+      <Heading title={t("descriptionTitle")} />
+      <Input
+        id="title"
+        label={t("titleLabel")}
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <hr />
+      <Input
+        id="description"
+        label={t("descriptionLabel")}
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+    </div>
+  );
+}
+
+if (step === STEPS.PRICE) {
+  bodyContent = (
+    <div className="flex flex-col gap-8">
+      <Heading title={t("priceTitle")} subtitle={t("priceSubtitle")} />
+      <Input
+        id="price"
+        label={t("priceLabel")}
+        formatPrice
+        type="number"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+    </div>
+  );
+}
 
   return (
     <Modal
