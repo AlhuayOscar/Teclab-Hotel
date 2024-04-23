@@ -10,6 +10,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ImageUpload from "@/app/[locale]/components/inputs/ImageUpload";
+import { useTranslation } from "react-i18next";
 
 interface ProfileClientProps {
   listings: SafeListing[];
@@ -22,6 +23,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
   const [editedImage, setEditedImage] = useState<string>(
     currentUser?.image || ""
   );
+  const { t } = useTranslation();
 
   const {
     register,
@@ -48,13 +50,13 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
             }),
             {
               loading: "Guardando...",
-              success: <b>Perfil actualizado con éxito</b>,
-              error: <b>Error al actualizar el perfil</b>,
+              success: <b>{t("profToast")}</b>,
+              error: <b>{t("profToastErr")}</b>,
             }
           )
           .then((result) => {
             if (emailEdited) {
-              toast("Tendrás que volver a iniciar sesión", { icon: "❗" });
+              toast(t("emailToastErr"), { icon: "❗" });
               signOut();
             }
             if (result && editedImage) {
@@ -63,12 +65,10 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
           })
           .catch((error) => {
             emailEdited
-              ? toast.error(
-                  "Se ha realizado un cambio, siga las instrucciones por favor"
-                )
-              : toast.error("Error al procesar la solicitud");
+              ? toast.error(t("changeToast"))
+              : toast.error(t("errToast"));
           })
-      : toast("No se realizaron cambios en el perfil.", {
+      : toast(t("errChangeToast"), {
           icon: "❔",
           id: "no-change",
         });
@@ -86,7 +86,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
     <Container>
       {currentUser ? (
         <main className="pt-24 md:pt-40 mx-auto p-4 max-w-screen-md">
-          <Heading title="Profile:" subtitle="Your personal information" />
+          <Heading title={t("profTitle")} subtitle={t("profSub")} />
 
           <img
             src={editedImage || currentUser?.image || "/images/placeholder.jpg"}
@@ -98,7 +98,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
           <div className="mt-4">
             <form onSubmit={handleSubmit(onSubmit)}>
               <p className="mb-2">
-                Nombre:
+                {t("name")}
                 <input
                   type="text"
                   defaultValue={currentUser?.name || ""}
@@ -109,7 +109,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
 
               <p className="mb-2">
                 <label className="mb-2 block">
-                  Correo Electrónico:
+                  {t("email")}
                   <span className="border rounded px-2 py-1 w-full text-gray-600">
                     <br />
                     {currentUser?.email || ""}
@@ -117,7 +117,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
                 </label>
               </p>
               <p className="mb-2">
-                Nuevo Correo Electrónico:
+                {t("newEmail")}
                 <input
                   type="text"
                   defaultValue={currentUser?.email || ""}
@@ -133,7 +133,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
                   className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Guardando..." : "Guardar"}
+                  {isSubmitting ? `${t("saving")}...` : `${t("save")}`}
                 </button>
               )}
             </form>

@@ -10,6 +10,7 @@ import { SafeListing, SafeUser } from "@/app/[locale]/types";
 import Heading from "@/app/[locale]/components/Heading";
 import Container from "@/app/[locale]/components/Container";
 import ListingCard from "@/app/[locale]/components/listings/ListingCard";
+import { useTranslation } from "react-i18next";
 
 interface PropertiesClientProps {
   listings: SafeListing[];
@@ -22,6 +23,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 }) => {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState("");
+  const { t } = useTranslation();
 
   const onDelete = useCallback(
     (id: string) => {
@@ -30,7 +32,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
       axios
         .delete(`/api/listings/${id}`)
         .then(() => {
-          toast.success("Listing deleted");
+          toast.success(t("listPropDel"));
           router.refresh();
         })
         .catch((error) => {
@@ -45,19 +47,19 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 
   return (
     <Container>
-      <Heading title="Properties" subtitle="List of your properties" />
+      <Heading title={t("props")} subtitle={t("listProps")} />
       <div
         className="pt-12 md:pt-24 justify-center sm:justify-normal flex flex-wrap gap-4
         "
       >
-        {listings.map((listing: any) => (
+        {listings.map((listing) => (
           <ListingCard
             key={listing.id}
             data={listing}
             actionId={listing.id}
             onAction={onDelete}
             disabled={deletingId === listing.id}
-            actionLabel="Delete property"
+            actionLabel={t("delProp")}
             currentUser={currentUser}
           />
         ))}

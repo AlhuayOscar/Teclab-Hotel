@@ -142,11 +142,25 @@ const ListingCard: React.FC<ListingCardProps> = ({
     if (!reservation) {
       return null;
     }
-
+    console.log(reservation.startDate, reservation.endDate);
     const start = new Date(reservation.startDate);
     const end = new Date(reservation.endDate);
+    const startDayMonth = `|${start.getDate()} / ${
+      start.getMonth() < 11 ? start.getMonth() + 1 : 12
+    }| `;
+    const endDayMonth = `|${end.getDate()} / ${
+      end.getMonth() < 11 ? end.getMonth() + 1 : 12
+    }|`;
 
-    return `${format(start, "PP")} - ${format(end, "PP")}`;
+    const startYear = start.getFullYear();
+    const endYear = end.getFullYear();
+
+    const formattedStart =
+      startYear === endYear ? startDayMonth : start.toLocaleDateString();
+    const formattedEnd =
+      startYear === endYear ? endDayMonth : end.toLocaleDateString();
+
+    return `${formattedStart} - ${formattedEnd}`;
   }, [reservation]);
 
   return (
