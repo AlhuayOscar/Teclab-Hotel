@@ -43,58 +43,50 @@ const RentModal = () => {
     {
       label: t("Beach"),
       icon: TbBeach,
-      description:
-        "This property is so close to the beach, you might just get sand in your bed!",
+      description: t("descBeach"),
     },
     {
       label: t("Modern"),
       icon: MdOutlineVilla,
-      description: "This property is as modern as a robot butler!",
+      description: t("descModern"),
     },
     {
       label: t("Mountain"),
       icon: TbMountain,
-      description:
-        "This property is nestled in the countryside like a cozy bear den!",
+      description: t("descMountain"),
     },
-
     {
       label: t("Lake"),
       icon: GiBoatFishing,
-      description:
-        "This property is so close to the lake, you'll be casting shadows on the fish!",
+      description: t("descLake"),
     },
     {
       label: t("Camping"),
       icon: GiForestCamp,
-      description:
-        "This property offers camping activities that'll make you a happy camper!",
+      description: t("descCamping"),
     },
     {
       label: t("Cold"),
       icon: MdSnowmobile,
-      description:
-        "This property is so chilly, you'll need a penguin as a roommate!",
+      description: t("descCold"),
     },
     {
       label: t("Warm"),
       icon: MdOutlineWbSunny,
-      description:
-        "This property is as sunny as a desert vacation without the sand in your shoes!",
+      description: t("descWarm"),
     },
     {
       label: t("Quiet"),
       icon: GiField,
-      description:
-        "This property is nestled in a barn, so peaceful even the mice whisper!",
+      description: t("descQuiet"),
     },
     {
       label: t("Spacious"),
       icon: FaTreeCity,
-      description:
-        "This property is as spacious and luxurious as a castle fit for a king!",
+      description: t("descSpacious"),
     },
   ];
+
   const {
     register,
     handleSubmit,

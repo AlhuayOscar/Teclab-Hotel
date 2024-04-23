@@ -5,73 +5,65 @@ import { TbBeach, TbMountain } from "react-icons/tb";
 import { GiBoatFishing, GiField, GiForestCamp } from "react-icons/gi";
 import { MdOutlineVilla, MdSnowmobile, MdOutlineWbSunny } from "react-icons/md";
 import { FaTreeCity } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
 
-export const categories = [
-  {
-    label: "Beach House",
-    icon: TbBeach,
-    description:
-      "This property is so close to the beach, you might just get sand in your bed!",
-  },
-  {
-    label: "Modern Apartment",
-    icon: MdOutlineVilla,
-    description: "This property is as modern as a robot butler!",
-  },
-  {
-    label: "Mountain House",
-    icon: TbMountain,
-    description:
-      "This property is nestled in the countryside like a cozy bear den!",
-  },
-
-  {
-    label: "Lake House",
-    icon: GiBoatFishing,
-    description:
-      "This property is so close to the lake, you'll be casting shadows on the fish!",
-  },
-  {
-    label: "Camping Huts",
-    icon: GiForestCamp,
-    description:
-      "This property offers camping activities that'll make you a happy camper!",
-  },
-  {
-    label: "Cold Areas",
-    icon: MdSnowmobile,
-    description:
-      "This property is so chilly, you'll need a penguin as a roommate!",
-  },
-  {
-    label: "Warm Areas",
-    icon: MdOutlineWbSunny,
-    description:
-      "This property is as sunny as a desert vacation without the sand in your shoes!",
-  },
-  {
-    label: "Quiet Area",
-    icon: GiField,
-    description:
-      "This property is nestled in a barn, so peaceful even the mice whisper!",
-  },
-  {
-    label: "Big Apartments",
-    icon: FaTreeCity,
-    description:
-      "This property is as spacious and luxurious as a castle fit for a king!",
-  },
-];
-
 const Categories = () => {
   const params = useSearchParams();
   const category = params?.get("category");
-  const pathname = usePathname();
-  const isMainPage = pathname === "/" || "es" || "en";
+  const { t } = useTranslation();
 
+  const categories = [
+    {
+      label: t("Beach"),
+      icon: TbBeach,
+      description: t("descBeach"),
+    },
+    {
+      label: t("Modern"),
+      icon: MdOutlineVilla,
+      description: t("descModern"),
+    },
+    {
+      label: t("Mountain"),
+      icon: TbMountain,
+      description: t("descMountain"),
+    },
+    {
+      label: t("Lake"),
+      icon: GiBoatFishing,
+      description: t("descLake"),
+    },
+    {
+      label: t("Camping"),
+      icon: GiForestCamp,
+      description: t("descCamping"),
+    },
+    {
+      label: t("Cold"),
+      icon: MdSnowmobile,
+      description: t("descCold"),
+    },
+    {
+      label: t("Warm"),
+      icon: MdOutlineWbSunny,
+      description: t("descWarm"),
+    },
+    {
+      label: t("Quiet"),
+      icon: GiField,
+      description: t("descQuiet"),
+    },
+    {
+      label: t("Spacious"),
+      icon: FaTreeCity,
+      description: t("descSpacious"),
+    },
+  ];
+  const pathname = usePathname() || "";
+  const isMainPage = /^\/(es|en)?$/.test(pathname);
   if (!isMainPage) {
     return null;
   }
