@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-test("test", async ({ page }) => {
-  await page.goto("https://teclab-hotel.vercel.app/en");
+test("Searchbar works with Map Api + rentModal", async ({ page }) => {
+  await page.goto("http://localhost:3000/en");
   await expect(
     page
       .locator("div")

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-test("test", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+test("Shouldn't register", async ({ page }) => {
+  await page.goto("http://localhost:3000/en");
   await page.locator(".p-4").click();
   await page.getByText("Sign up").click();
   await page.locator("#email").click();
