@@ -15,14 +15,14 @@ test("test", async ({ page }) => {
     .click();
   await page.locator(".p-3").first().click();
   await page.locator('div[role="option"]').first().click();
-await expect(
-  page
-    .locator("div")
-    .filter({
-      hasText: /.+/,
-    })
-    .first()
-).toBeVisible();
+  await expect(
+    page
+      .locator("div")
+      .filter({
+        hasText: /.+/,
+      })
+      .first()
+  ).toBeVisible();
   await page.getByRole("button", { name: "Marker" }).click();
   await page.getByRole("button", { name: "Next" }).click();
   await expect(page.locator("button:nth-child(3)").first()).toBeVisible();
