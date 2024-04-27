@@ -165,6 +165,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   return (
     <div
+      id="listingCard"
       onClick={isPaid ? undefined : () => router.push(`/listings/${data.id}`)}
       className="col-span-1 cursor-pointer group px-2"
     >
