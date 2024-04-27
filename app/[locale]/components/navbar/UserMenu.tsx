@@ -61,6 +61,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           {t("roomOwner")}
         </div>
         <div
+          id="userMenu"
           onClick={toggleOpen}
           className="
           p-4
@@ -104,34 +105,55 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               <>
                 {currentUser && (
                   <MenuItem
+                    id="myProfile"
                     label={t("myProfile")}
                     onClick={() => router.push("/profiles")}
                   />
                 )}
                 <MenuItem
+                  id="myTrips"
                   label={t("myTrips")}
                   onClick={() => router.push("/trips")}
                 />
                 <MenuItem
+                  id="myFavorites"
                   label={t("myFavorites")}
                   onClick={() => router.push("/favorites")}
                 />
                 <MenuItem
+                  id="myReservations"
                   label={t("myReservations")}
                   onClick={() => router.push("/reservations")}
                 />
                 <MenuItem
+                  id="myProperties"
                   label={t("myProperties")}
                   onClick={() => router.push("/properties")}
                 />
-                <MenuItem label={t("roomOwner")} onClick={rentModal.onOpen} />
+                <MenuItem
+                  id="roomOwner"
+                  label={t("roomOwner")}
+                  onClick={rentModal.onOpen}
+                />
                 <hr />
-                <MenuItem label={t("logout")} onClick={() => signOut()} />
+                <MenuItem
+                  id="logOut"
+                  label={t("logout")}
+                  onClick={() => signOut()}
+                />
               </>
             ) : (
               <>
-                <MenuItem label={t("login")} onClick={loginModal.onOpen} />
-                <MenuItem label={t("signup")} onClick={registerModal.onOpen} />
+                <MenuItem
+                  id="logIn"
+                  label={t("login")}
+                  onClick={loginModal.onOpen}
+                />
+                <MenuItem
+                  id="signUp"
+                  label={t("signup")}
+                  onClick={registerModal.onOpen}
+                />
               </>
             )}
           </div>
