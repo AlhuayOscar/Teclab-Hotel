@@ -32,7 +32,7 @@ test("test", async ({ page }) => {
   await page.locator("#description").fill("TestDescListing");
   await page.getByRole("button", { name: "Next" }).click();
   await page.getByPlaceholder(" ").click();
-  await page.getByPlaceholder(" ").fill("10");
+  await page.getByPlaceholder(" ").fill("99999");
   await page.getByRole("button", { name: "Create" }).click();
   await page
     .locator("div")
