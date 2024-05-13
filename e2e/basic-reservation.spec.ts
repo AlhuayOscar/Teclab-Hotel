@@ -41,7 +41,7 @@ test("test", async ({ page }) => {
     .click();
   await page
     .locator("div")
-    .filter({ hasText: "Americas, ArubaBeach House$ 10per night" })
+    .filter({ hasText: "Americas, ArubaBeach House$ 99999per night" })
     .nth(2)
     .click();
   await page.locator("#userMenu").click();
@@ -53,7 +53,7 @@ test("test", async ({ page }) => {
   await page.getByText("Beach House", { exact: true }).click();
   await page.getByText("This property is so close to").click();
   await page.getByText("TestDescListing").click();
-  await page.getByText("$ 10per night").click();
+  await page.getByText("$ 99999per night").click();
   await page.getByText("Total$").click();
   await page.getByText("$").nth(1).click();
   await page.getByRole("button", { name: "Reserve" }).click();
@@ -65,7 +65,16 @@ test("test", async ({ page }) => {
   await page.locator("#listingCard").nth(1).click();
   await page.waitForURL(/^(?!\/(es|\/)$).*/);
   await page.locator("#userMenu").click();
-  await page.getByText("My properties").click();
-  await page.getByText("Americas, ArubaBeach House$").first().click();
-  await page.waitForURL("**/properties");
+  await page.getByText("My trips").click();
+  await page.waitForURL("**/trips");
+  if (page.locator("#listingCard")) {
+    if (page.getByRole("button", { name: "Cancel reservation" })) {
+      await page.getByRole("button", { name: "Cancel reservation" }).first().click();
+    } else {
+      await page.getByRole("button", { name: "Cancel reservation" }).click();
+    }
+  } else {
+    await page.locator("#userMenu").click();
+    await page.getByText("Logout").click();
+  }
 });
