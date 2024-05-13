@@ -12,9 +12,7 @@ test("test", async ({ page }) => {
   await page.locator("#password").click();
   await page.locator("#password").fill("aaa123");
   await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await expect(
-    page.locator("div").filter({ hasText: "Logged in" }).nth(2)
-  ).toBeVisible();
+  await page.locator("div").filter({ hasText: "Logged in" }).nth(2).click();
   await page.locator("#userMenu").click();
   await page.locator("#userMenu").click();
   await page.locator("#userMenu").click();
@@ -69,7 +67,10 @@ test("test", async ({ page }) => {
   await page.waitForURL("**/trips");
   if (page.locator("#listingCard")) {
     if (page.getByRole("button", { name: "Cancel reservation" })) {
-      await page.getByRole("button", { name: "Cancel reservation" }).first().click();
+      await page
+        .getByRole("button", { name: "Cancel reservation" })
+        .first()
+        .click();
     } else {
       await page.getByRole("button", { name: "Cancel reservation" }).click();
     }
