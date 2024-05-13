@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Visit a listing card", async ({ page }) => {
-  await page.goto("http://localhost:3000/en");
+  await page.goto("https://teclab-hotel.vercel.app/en");
 
   const maxRetry = 3;
   let randomListingCard = null;

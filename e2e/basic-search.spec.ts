@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Searchbar works with Map Api + rentModal", async ({ page }) => {
-  await page.goto("http://localhost:3000/en");
+  await page.goto("https://teclab-hotel.vercel.app/en");
   await expect(
     page
       .locator("div")
